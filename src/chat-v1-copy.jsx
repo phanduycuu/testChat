@@ -39,40 +39,100 @@ const ChatRoom = ({ roomName, user }) => {
       setChat("");
     }
   };
+  const styles = {
+    container: {
+      minHeight: "100vh", // Chiều cao tối thiểu là 100% chiều cao màn hình
+      width: "100vw", // Chiều rộng là 100% chiều rộng màn hình
+      display: "flex", // Dùng Flexbox
+      justifyContent: "center", // Canh giữa theo chiều ngang
+      alignItems: "center", // Canh giữa theo chiều dọc
+      background: "#f0f2f5", // Màu nền sáng
+    },
 
+    title: {
+      fontSize: "20px",
+      textAlign: "center",
+      marginBottom: "16px",
+      color: "#333",
+    },
+    chatBox: {
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      padding: "10px",
+      height: "300px",
+      overflowY: "auto",
+      marginBottom: "10px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
+      background: "#f9f9f9",
+    },
+    message: {
+      padding: "8px 12px",
+      borderRadius: "12px",
+      maxWidth: "75%",
+      wordBreak: "break-word",
+    },
+    inputContainer: {
+      display: "flex",
+      gap: "10px",
+    },
+    input: {
+      flex: 1,
+      padding: "10px",
+      borderRadius: "8px",
+      border: "1px solid #ccc",
+      fontSize: "16px",
+    },
+    button: {
+      padding: "10px 16px",
+      borderRadius: "8px",
+      backgroundColor: "#4CAF50",
+      color: "#fff",
+      fontSize: "16px",
+      border: "none",
+      cursor: "pointer",
+    },
+  };
   return (
-    <div>
-      <h2>Chat Room: {roomName}</h2>
+    <div style={styles.container}>
       <div
         style={{
-          border: "1px solid #111010",
-          padding: "10px",
-          height: "300px",
-          overflowY: "scroll",
+          border: "2px solid #ccc",
+          borderRadius: "12px",
+          padding: "20px",
         }}
       >
-        {chats.map((msg, index) => (
-          <div
-            key={index}
-            style={{
-              padding: "5px",
-              background: msg.sender === user ? "#67db0f" : "#232570",
-            }}
-          >
-            {console.log(msg)}
-            <strong>{msg.sender}:</strong> {msg.chat}
-            {/* {console.log(msg)} */}
-          </div>
-        ))}
-      </div>
-      <input
-        type="text"
-        value={chat}
-        onChange={(e) => setChat(e.target.value)}
-        placeholder="Nhập tin nhắn..."
-      />
+        <h2 style={styles.title}>Phòng chat: {roomName}</h2>
 
-      <button onClick={sendChat}>Gửi</button>
+        <div style={styles.chatBox}>
+          {chats.map((msg, index) => (
+            <div
+              key={index}
+              style={{
+                ...styles.message,
+                alignSelf: msg.sender === user ? "flex-end" : "flex-start",
+                backgroundColor: msg.sender === user ? "#DCF8C6" : "#E6E6E6",
+              }}
+            >
+              <strong>{msg.sender}:</strong> {msg.chat}
+            </div>
+          ))}
+        </div>
+
+        <div style={styles.inputContainer}>
+          <input
+            type="text"
+            value={chat}
+            onChange={(e) => setChat(e.target.value)}
+            placeholder="Nhập tin nhắn..."
+            style={styles.input}
+          />
+          <button onClick={sendChat} style={styles.button}>
+            Gửi
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
