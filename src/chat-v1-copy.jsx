@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import UploadFile from "./file";
 
-const ChatRoom = ({ roomName = 1, user }) => {
+const ChatRoom = ({ roomName, user }) => {
   const [socket, setSocket] = useState(null);
   const [chats, setChats] = useState([]);
   const [chat, setChat] = useState("");
@@ -35,7 +35,7 @@ const ChatRoom = ({ roomName = 1, user }) => {
 
   const sendChat = () => {
     if (socket && chat) {
-      socket.send(JSON.stringify({ message: chat, sender: user.id })); // Đảm bảo gửi đúng key "message"
+      socket.send(JSON.stringify({ message: chat, sender: user })); // Đảm bảo gửi đúng key "message"
       setChat("");
     }
   };
@@ -56,9 +56,10 @@ const ChatRoom = ({ roomName = 1, user }) => {
             key={index}
             style={{
               padding: "5px",
-              background: msg.sender === user.email ? "#67db0f" : "#232570",
+              background: msg.sender === user ? "#67db0f" : "#232570",
             }}
           >
+            {console.log(msg)}
             <strong>{msg.sender}:</strong> {msg.chat}
             {/* {console.log(msg)} */}
           </div>

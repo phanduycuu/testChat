@@ -18,6 +18,7 @@ const ChatRoom = ({ roomName = 1, user }) => {
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      console.log(data);
       setChats((prev) => [
         ...prev,
         { sender: data.sender, chat: data.message, file: data.file },
